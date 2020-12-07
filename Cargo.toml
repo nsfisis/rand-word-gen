@@ -1,0 +1,12 @@
+[package]
+name = "rand-word-gen"
+version = "1.0.0"
+authors = ["nsfisis"]
+edition = "2018"
+description = "Generates random pseudo-English words."
+license = "MIT"
+
+[dependencies]
+anyhow = "1.0.34"
+clap = "2.33.3"
+rand = "0.7.3"
