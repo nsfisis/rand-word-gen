@@ -13,9 +13,16 @@ impl Model {
         Model { chars }
     }
 
-    pub fn generate<Rng: RngCore>(&self, rng: &mut Rng, len: usize) -> String {
+    pub fn generate<Rng: RngCore>(
+        &self,
+        rng: &mut Rng,
+        len: usize,
+        first_char: Option<char>,
+    ) -> String {
         let mut result = String::with_capacity(len);
-        let mut prefix = NUM_OF_LETTERS;
+        let mut prefix = first_char
+            .map(|c| c as usize - b'a' as usize)
+            .unwrap_or(NUM_OF_LETTERS);
         for _ in 0..len {
             let chars = &self.chars[prefix];
             let c = select_one_char(rng, &chars);
