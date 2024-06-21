@@ -25,7 +25,7 @@ impl Model {
             .unwrap_or(NUM_OF_LETTERS);
         for _ in 0..len {
             let chars = &self.chars[prefix];
-            let c = select_one_char(rng, &chars);
+            let c = select_one_char(rng, chars);
             result.push(c as char);
             prefix = (c - b'a') as usize;
         }
