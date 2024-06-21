@@ -31,32 +31,24 @@ fn main() -> Result<()> {
 }
 
 fn parse_args() -> Result<Config> {
-    use clap::{crate_description, crate_version, value_t, App, Arg};
+    use clap::{arg, command, value_parser};
 
-    let matches = App::new("rand-word-gen")
-        .version(crate_version!())
-        .about(crate_description!())
+    let matches = command!()
         .arg(
-            Arg::with_name("words")
-                .short("n")
-                .long("words")
-                .value_name("NUMBER_OF_WORDS")
+            arg!(-n --words <NUMBER_OF_WORDS> "Sets number of generated words")
                 .default_value("20")
-                .help("Sets number of generated words"),
+                .value_parser(value_parser!(usize)),
         )
-        .arg(
-            Arg::with_name("prefix")
-                .short("p")
-                .long("prefix")
-                .value_name("PREFIX")
-                .default_value("")
-                .help("Sets prefix of generated words"),
-        )
+        .arg(arg!(-p --prefix <PREFIX> "Sets prefix of generated words").default_value(""))
         .get_matches();
 
-    let words = value_t!(matches, "words", usize).context("'--words' must be a number")?;
-    let mut prefix =
-        value_t!(matches, "prefix", String).context("Fatal error: failed to parse '--prefix'")?;
+    let words = *matches
+        .get_one::<usize>("words")
+        .context("'--words' must be a number")?;
+    let mut prefix = matches
+        .get_one::<String>("prefix")
+        .context("Fatal error: failed to parse '--prefix'")?
+        .clone();
     if !prefix.bytes().all(|c| c.is_ascii_alphabetic()) {
         bail!("'--prefix' must be alphabetic");
     }
