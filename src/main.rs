@@ -35,7 +35,6 @@ fn parse_args() -> Result<Config> {
 
     let matches = App::new("rand-word-gen")
         .version(crate_version!())
-        .version_short("v")
         .about(crate_description!())
         .arg(
             Arg::with_name("words")
