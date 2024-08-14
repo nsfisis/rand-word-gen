@@ -1,6 +1,6 @@
 [package]
 name = "rand-word-gen"
-version = "1.1.0"
+version = "1.1.1"
 authors = ["nsfisis"]
 edition = "2021"
 description = "Generates random pseudo-English words."
@@ -11,5 +11,5 @@ anyhow = "1.0.86"
 rand = "0.8.5"
 
 [dependencies.clap]
-version = "4.5.7"
+version = "4.5.15"
 features = ["cargo"]
